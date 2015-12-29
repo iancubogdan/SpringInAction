@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Bogdan
-  Date: 12/22/2015
-  Time: 1:33 PM
+  Date: 12/29/2015
+  Time: 3:24 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -15,10 +15,8 @@
           href="<c:url value="/resources/style.css" />" >
 </head>
 <body>
-    <h1>Welcome to Spittr</h1>
+    <h1>Register</h1>
 
-    <%--<a href="<c:url value="/spittles" />">Spittles</a> |--%>
-    <%--<a href="<c:url value="/spitter/register" />">Register</a>--%>
+    <form method="POST"></form>
 </body>
 </html>
-
