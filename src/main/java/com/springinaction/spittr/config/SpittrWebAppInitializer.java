@@ -1,6 +1,5 @@
 package com.springinaction.spittr.config;
 
-import com.springinaction.spittr.config.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -19,4 +18,9 @@ public class SpittrWebAppInitializer extends AbstractAnnotationConfigDispatcherS
     protected Class<?>[] getServletConfigClasses() {
         return new Class<?>[] { WebConfig.class };
     }
+
+   /* @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setMultipartConfig(new MultipartConfigElement("/tmp/spittr/uploads"));
+    }*/
 }
