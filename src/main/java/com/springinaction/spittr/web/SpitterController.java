@@ -9,8 +9,11 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 
+import javax.servlet.http.Part;
 import javax.validation.Valid;
+import java.io.IOException;
 
 /**
  * Created by Bogdan on 12/29/2015.
@@ -33,11 +36,12 @@ public class SpitterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegistration(@Valid Spitter spitter, Errors errors){
+    public String processRegistration(@RequestPart("profilePicture") Part profilePicture, @Valid Spitter spitter, Errors errors) throws IOException {
         if(errors.hasErrors()){
             return "registerForm";
         }
 
+        profilePicture.write("/com/springinaction/spittr/data/spittr" + profilePicture.getName());
         spitterRepository.save(spitter);
         return "redirect:/spitter/" + spitter.getUsername();
     }
