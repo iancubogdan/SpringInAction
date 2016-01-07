@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Part;
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -36,12 +37,12 @@ public class SpitterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegistration(@RequestPart("profilePicture") Part profilePicture, @Valid Spitter spitter, Errors errors) throws IOException {
+    public String processRegistration(@RequestPart("profilePicture") MultipartFile profilePicture, @Valid Spitter spitter, Errors errors) throws IOException {
         if(errors.hasErrors()){
             return "registerForm";
         }
 
-        profilePicture.write("/com/springinaction/spittr/data/spittr" + profilePicture.getName());
+        profilePicture.transferTo(new File("/com/springinaction/spittr/data/spittr/"+ profilePicture.getOriginalFilename()));
         spitterRepository.save(spitter);
         return "redirect:/spitter/" + spitter.getUsername();
     }
