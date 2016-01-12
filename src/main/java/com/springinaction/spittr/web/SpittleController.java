@@ -1,13 +1,15 @@
 package com.springinaction.spittr.web;
 
+import com.springinaction.spittr.Spittle;
 import com.springinaction.spittr.data.SpittleRepository;
+import com.springinaction.spittr.exceptions.DuplicateSpittleException;
+import com.springinaction.spittr.exceptions.SpittleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 /**
  * Created by Bogdan on 12/28/2015.
@@ -36,7 +38,19 @@ public class SpittleController {
 
     @RequestMapping(value = "/{spittleId}", method = RequestMethod.GET)
     public String spittle(@PathVariable("spittleId") long spittleId, Model model){
-        model.addAttribute(spittleRepository.findOne(spittleId));
+        Spittle spittle = spittleRepository.findOne(spittleId);
+        if(spittle == null){
+            throw new SpittleNotFoundException();
+        }
+        model.addAttribute(spittle);
         return "spittle";
     }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String saveSpittle(Spittle form, Model model){
+        spittleRepository.save(new Spittle(form.getMessage(), new Date(), form.getLongitude(),form.getLatitude()));
+        return "redirect:/spittles";
+    }
+
+
 }
