@@ -54,7 +54,6 @@ public class SpitterController {
         if(!model.containsAttribute("spitter")){
             Spitter spitter = spitterRepository.findByUsername(username);
             model.addAttribute(spitter);
-
         }
         return "profile";
     }

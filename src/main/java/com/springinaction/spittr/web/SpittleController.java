@@ -2,12 +2,14 @@ package com.springinaction.spittr.web;
 
 import com.springinaction.spittr.Spittle;
 import com.springinaction.spittr.data.SpittleRepository;
-import com.springinaction.spittr.exceptions.DuplicateSpittleException;
 import com.springinaction.spittr.exceptions.SpittleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 
@@ -20,9 +22,6 @@ public class SpittleController {
 
     public static final String MAX_LONG_AS_STRING = "9223372036854775807";
     private SpittleRepository spittleRepository;
-
-//    public SpittleController() {
-//    }
 
     @Autowired
     public SpittleController(SpittleRepository spittleRepository) {
